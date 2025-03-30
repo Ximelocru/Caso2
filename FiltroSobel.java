@@ -22,13 +22,13 @@ public class FiltroSobel {
     }
 
     // Sobel Kernels para detección de bordes
-    static final int[][] SOBEL_X = {
+    public static final int[][] SOBEL_X = {
             { -1, 0, 1 },
             { -2, 0, 2 },
             { -1, 0, 1 }
     };
 
-    static final int[][] SOBEL_Y = {
+    public static final int[][] SOBEL_Y = {
             { -1, -2, -1 },
             { 0, 0, 0 },
             { 1, 2, 1 }
@@ -94,6 +94,8 @@ public class FiltroSobel {
 
                         int direccionSobelX=acumulativoSobelX+((ki + 1)*3+(kj + 1))*4;
                         nuevaReferencia("SOBEL_X["+(ki+1)+"]"+"["+(kj+1)+"]", direccionSobelX, "R");
+                        nuevaReferencia("SOBEL_X["+(ki+1)+"]"+"["+(kj+1)+"]", direccionSobelX, "R");
+                        nuevaReferencia("SOBEL_X["+(ki+1)+"]"+"["+(kj+1)+"]", direccionSobelX, "R");
                         
                         // --------------------------------------------
 
@@ -105,6 +107,8 @@ public class FiltroSobel {
                         
                         int direccionSobelY=acumulativoSobelY+((ki + 1)*3+(kj + 1))*4;
 
+                        nuevaReferencia("SOBEL_Y["+(ki+1)+"]"+"["+(kj+1)+"]",direccionSobelY, "R");
+                        nuevaReferencia("SOBEL_Y["+(ki+1)+"]"+"["+(kj+1)+"]",direccionSobelY, "R");
                         nuevaReferencia("SOBEL_Y["+(ki+1)+"]"+"["+(kj+1)+"]",direccionSobelY, "R");
                         
                         // ------------------------------------------------
@@ -154,7 +158,7 @@ public class FiltroSobel {
         int NP = (int) Math.ceil((double) totalBytes / TP);
         // int NP= (int) Math.ceil((double) totalBytes / TP);;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\cfvm0\\OneDrive\\Documents\\Caso2_InfraComp\\Caso2"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("referencias.txt"))) {
 
             // TP
             writer.write("TP=" + TP);
