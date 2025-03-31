@@ -125,19 +125,17 @@ public class FiltroSobel {
 
                 // Print Respuesta------------------------------
                 
-               
-
-                int direccionRta=acumulativoRta + ((i * imagenOut.ancho + j) * 3);
-                nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].r", direccionRta, "W");//ROJO
-                nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].g", direccionRta+1, "W");//VERDE
-                nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].b", direccionRta+2, "W");//BLUE
-
                 // --------------------------------------------
 
                 // Crear el nuevo valor RGB
                 imagenOut.imagen[i][j][0] = (byte) red;
                 imagenOut.imagen[i][j][1] = (byte) green;
                 imagenOut.imagen[i][j][2] = (byte) blue;
+
+                int direccionRta=acumulativoRta + ((i * imagenOut.ancho + j) * 3);
+                nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].r", direccionRta, "W");//ROJO
+                nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].g", direccionRta+1, "W");//VERDE
+                nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].b", direccionRta+2, "W");//BLUE
             }
         }
     }
