@@ -15,25 +15,22 @@ public class GestorReferencias extends Thread {
     public void run() {
         int i =1;
         for (int[] ref : referencias) {
-            boolean hit= paginacion.procesarReferencia(ref[0], ref[1] == 1);
+            boolean hit = paginacion.procesarReferencia(ref[0], ref[1] == 1);
             if (hit) {
                 hits++;
-                //tiempoH+=25;}
             }
             if (!hit) {
                 fallasPagina++;
-                //tiempoH+=25;}
             }
             if (i % 10000 == 0) {
                 try {
                     Thread.sleep(1);
-                } catch (InterruptedException e) {
+                } 
+                catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             }
             i++;
         }
     }
-
-
 }

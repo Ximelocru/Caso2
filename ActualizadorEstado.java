@@ -1,4 +1,4 @@
-public class ActualizadorEstado extends Thread{
+public class ActualizadorEstado extends Thread {
     private final PaginacionNRU paginacion;
 
     public ActualizadorEstado(PaginacionNRU paginacion) {
@@ -10,13 +10,12 @@ public class ActualizadorEstado extends Thread{
         while (true) {
             try {
                 Thread.sleep(1);
-            } catch (InterruptedException e) {
+            } 
+            catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
             }
             paginacion.actualizarBits();
         }
     }
-
-
 }
