@@ -1,8 +1,9 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     
@@ -29,7 +30,7 @@ public class Main {
                 }
                 //Opcion 2
                 if (opcion.equals("2")) {
-                    simulacion(reader);
+                    simuladorPaginacion(reader);
                 }
                 //Salir
                 if (opcion.equals("1")) {
@@ -80,13 +81,59 @@ public class Main {
             System.out.print("Ingrese el numero de marcos: ");
             Integer marcos = Integer.parseInt(reader.readLine().trim());
             
-            SimuladorNRU simulador= new SimuladorNRU(marcos, inputFilePath);
+            //SimuladorNRU simulador= new SimuladorNRU(marcos, inputFilePath);
 
-            simulador.simularPaginacion();
-            
-            
+            //simulador.simularPaginacion();      
+    }
 
-            
-            
+    public static void simuladorPaginacion(BufferedReader reader)throws IOException{
+        System.out.print("Ingrese la ruta del archivo BMP: ");
+        String nombreArchivo = reader.readLine().trim();
+        
+        System.out.print("Ingrese el numero de marcos: ");
+        Integer numMarcos = Integer.parseInt(reader.readLine().trim());
+
+        List<int[]> referencias = leerReferencias(nombreArchivo);
+        PaginacionNRU paginacion = new PaginacionNRU(numMarcos);
+
+        GestorReferencias gestor = new GestorReferencias(paginacion, referencias);
+        ActualizadorEstado actualizador = new ActualizadorEstado(paginacion);
+
+        gestor.start();
+        actualizador.start();
+
+        try {
+            gestor.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        System.out.println("Fallas de página: " + gestor.fallasPagina);
+                System.out.println("Hits: " + gestor.hits);
+                System.out.println("total: " + (gestor.hits+gestor.fallasPagina));
+                
+        actualizador.interrupt();
+    }
+    
+    private static List<int[]> leerReferencias(String nombreArchivo) throws IOException {
+        List<int[]> referencias = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            // Saltar la cabecera
+            String linea;
+            while ((linea = br.readLine()) != null && !linea.startsWith("Imagen") && !linea.startsWith("SOBEL")) {
+                // Salta todas las líneas hasta encontrar referencias válidas
+            }
+    
+            // Procesar referencias
+            do {
+                String[] partes = linea.split(",");
+                if (partes.length >= 4) {
+                    int paginaVirtual = Integer.parseInt(partes[1].trim()); // Campo 2: Página virtual
+                    boolean esEscritura = partes[3].trim().equals("W");     // Campo 4: Tipo de acción
+                    referencias.add(new int[]{paginaVirtual, esEscritura ? 1 : 0});
+                }
+            } while ((linea = br.readLine()) != null);
+        }
+        return referencias;
     }
 }

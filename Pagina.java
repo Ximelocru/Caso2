@@ -22,5 +22,14 @@ HashMap<Integer,ArrayList<Integer>> memAux= new HashMap<>();
 
         //
     }*/ 
+    int numero;
+    int bitUso; // 0 o 1
+    int bitModificacion; // 0 o 1
+
+    public Pagina(int numero, boolean esEscritura) {
+        this.numero = numero;
+        this.bitUso = 1;
+        this.bitModificacion = esEscritura ? 1 : 0;
+    }
 
 }
