@@ -76,6 +76,13 @@ public class Main {
             
             System.out.print("Ingrese la ruta del archivo BMP: ");
             String inputFilePath = reader.readLine().trim();
+
+            System.out.print("Ingrese el numero de marcos: ");
+            Integer marcos = Integer.parseInt(reader.readLine().trim());
+            
+            SimuladorNRU simulador= new SimuladorNRU(marcos, inputFilePath);
+
+            simulador.simularPaginacion();
             
             
 
