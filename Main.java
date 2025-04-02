@@ -46,7 +46,7 @@ public class Main {
         System.out.print("Ingrese el tamaño de página (en bytes): ");
         int TP = Integer.parseInt(reader.readLine().trim());
     
-        System.out.print("Ingrese el nombre de la imagen (ejemplo: imagen.bmp). Recuerde que debe encontrarse dentro de la carpeta 'Imagenes?: ");
+        System.out.print("Ingrese el nombre de la imagen (ejemplo: imagen.bmp). Recuerde que debe encontrarse dentro de la carpeta 'Imagenes': ");
         String inputFilePath = "Imagenes/" + reader.readLine().trim();
     
         Imagen imagenIn = new Imagen(inputFilePath); 

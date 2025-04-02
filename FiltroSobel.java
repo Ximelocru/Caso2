@@ -56,7 +56,7 @@ public class FiltroSobel {
                         int green = imagenIn.imagen[i + ki][j + kj][1];
                         int blue = imagenIn.imagen[i + ki][j + kj][2];
                         
-                        int direccionImagen=acumulativoImagen+((i + ki)*imagenIn.ancho+(j + kj))*3;
+                        int direccionImagen = acumulativoImagen + ((i + ki) * imagenIn.ancho + (j + kj)) * 3;
                         nuevaReferencia("Imagen["+(i+ki)+"]"+"["+(j + kj)+"].r", direccionImagen, "R");
                         nuevaReferencia("Imagen["+(i+ki)+"]"+"["+(j + kj)+"].g", direccionImagen+1, "R");
                         nuevaReferencia("Imagen["+(i+ki)+"]"+"["+(j + kj)+"].b", direccionImagen+2, "R");
@@ -65,7 +65,7 @@ public class FiltroSobel {
                         gradXGreen += green * SOBEL_X[ki + 1][kj + 1];
                         gradXBlue += blue * SOBEL_X[ki + 1][kj + 1];
 
-                        int direccionSobelX=acumulativoSobelX+((ki + 1)*3+(kj + 1))*4;
+                        int direccionSobelX = acumulativoSobelX + ((ki + 1) * 3 + (kj + 1)) * 4;
                         nuevaReferencia("SOBEL_X["+(ki+1)+"]"+"["+(kj+1)+"]", direccionSobelX, "R");
                         nuevaReferencia("SOBEL_X["+(ki+1)+"]"+"["+(kj+1)+"]", direccionSobelX, "R");
                         nuevaReferencia("SOBEL_X["+(ki+1)+"]"+"["+(kj+1)+"]", direccionSobelX, "R");
@@ -74,25 +74,22 @@ public class FiltroSobel {
                         gradYGreen += green * SOBEL_Y[ki + 1][kj + 1];
                         gradYBlue += blue * SOBEL_Y[ki + 1][kj + 1];
                         
-                        int direccionSobelY=acumulativoSobelY+((ki + 1)*3+(kj + 1))*4;
+                        int direccionSobelY = acumulativoSobelY + ((ki + 1) * 3 + (kj + 1)) * 4;
                         nuevaReferencia("SOBEL_Y["+(ki+1)+"]"+"["+(kj+1)+"]",direccionSobelY, "R");
                         nuevaReferencia("SOBEL_Y["+(ki+1)+"]"+"["+(kj+1)+"]",direccionSobelY, "R");
                         nuevaReferencia("SOBEL_Y["+(ki+1)+"]"+"["+(kj+1)+"]",direccionSobelY, "R");
                     }
                 }
 
-                int red = Math.min(Math.max((int) Math.sqrt(gradXRed * gradXRed +
-                        gradYRed * gradYRed), 0), 255);
-                int green = Math.min(Math.max((int) Math.sqrt(gradXGreen * gradXGreen +
-                        gradYGreen * gradYGreen), 0), 255);
-                int blue = Math.min(Math.max((int) Math.sqrt(gradXBlue * gradXBlue +
-                        gradYBlue * gradYBlue), 0), 255);
+                int red = Math.min(Math.max((int) Math.sqrt(gradXRed * gradXRed + gradYRed * gradYRed), 0), 255);
+                int green = Math.min(Math.max((int) Math.sqrt(gradXGreen * gradXGreen + gradYGreen * gradYGreen), 0), 255);
+                int blue = Math.min(Math.max((int) Math.sqrt(gradXBlue * gradXBlue + gradYBlue * gradYBlue), 0), 255);
 
                 imagenOut.imagen[i][j][0] = (byte) red;
                 imagenOut.imagen[i][j][1] = (byte) green;
                 imagenOut.imagen[i][j][2] = (byte) blue;
 
-                int direccionRta=acumulativoRta + ((i * imagenOut.ancho + j) * 3);
+                int direccionRta = acumulativoRta + ((i * imagenOut.ancho + j) * 3);
                 nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].r", direccionRta, "W");
                 nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].g", direccionRta+1, "W");
                 nuevaReferencia("Rta["+(i)+"]"+"["+(j)+"].b", direccionRta+2, "W");
@@ -103,8 +100,8 @@ public class FiltroSobel {
     public void nuevaReferencia(String nombre, int direccion, String bitAccion) {
         int pagina = direccion / TP;
         int desplazamiento = direccion % TP;
-        String res = nombre + "," + pagina + "," + desplazamiento + "," + bitAccion;
-        referencias.add(res);
+        String ref = nombre + "," + pagina + "," + desplazamiento + "," + bitAccion;
+        referencias.add(ref);
     }
 
     public void generarArchivoReferencias() {

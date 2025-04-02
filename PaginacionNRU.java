@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PaginacionNRU {
@@ -40,53 +38,47 @@ public class PaginacionNRU {
     }
     
     private synchronized void reemplazarPagina() {
-
-        List<Integer> clase0 = new ArrayList<>();
-        List<Integer> clase1 = new ArrayList<>();
-        List<Integer> clase2 = new ArrayList<>();
-        List<Integer> clase3 = new ArrayList<>();
-
+        Integer candidatoClase1 = null;
+        Integer candidatoClase2 = null;
+        Integer candidatoClase3 = null;
+    
         for (Map.Entry<Integer, Pagina> entry : marcos.entrySet()) {
-
-            Pagina pagina = entry.getValue();
             int numeroPagina = entry.getKey();
-
-            if (pagina.bitUso == 0 && pagina.bitModificacion == 0) {
-                clase0.add(numeroPagina);
+            Pagina pagina = entry.getValue();
+    
+            int bitUso = pagina.bitUso;
+            int bitMod = pagina.bitModificacion;
+    
+            if (bitUso == 0 && bitMod == 0) {
+                marcos.remove(numeroPagina);
+                tablaPaginas.remove(numeroPagina);
+                return;
             } 
-            else if (pagina.bitUso == 0 && pagina.bitModificacion == 1) {
-                clase1.add(numeroPagina);
+            else if (bitUso == 0 && bitMod == 1 && candidatoClase1 == null) {
+                candidatoClase1 = numeroPagina;
             } 
-            else if (pagina.bitUso == 1 && pagina.bitModificacion == 0) {
-                clase2.add(numeroPagina);
+            else if (bitUso == 1 && bitMod == 0 && candidatoClase2 == null) {
+                candidatoClase2 = numeroPagina;
             } 
-            else {
-                clase3.add(numeroPagina);
+            else if (bitUso == 1 && bitMod == 1 && candidatoClase3 == null) {
+                candidatoClase3 = numeroPagina;
             }
         }
-
-        if (!clase0.isEmpty()) {
-            int paginaEliminar = clase0.get(0);
-            marcos.remove(paginaEliminar);
-            tablaPaginas.remove(paginaEliminar);
+    
+        if (candidatoClase1 != null) {
+            marcos.remove(candidatoClase1);
+            tablaPaginas.remove(candidatoClase1);
         } 
-        else if (!clase1.isEmpty()) {
-            int paginaEliminar = clase1.get(0);
-            marcos.remove(paginaEliminar);
-            tablaPaginas.remove(paginaEliminar);
+        else if (candidatoClase2 != null) {
+            marcos.remove(candidatoClase2);
+            tablaPaginas.remove(candidatoClase2);
         } 
-        else if (!clase2.isEmpty()) {
-            int paginaEliminar = clase2.get(0);
-            marcos.remove(paginaEliminar);
-            tablaPaginas.remove(paginaEliminar);
-        } 
-        else if (!clase3.isEmpty()) {
-            int paginaEliminar = clase3.get(0);
-            marcos.remove(paginaEliminar);
-            tablaPaginas.remove(paginaEliminar);
+        else if (candidatoClase3 != null) {
+            marcos.remove(candidatoClase3);
+            tablaPaginas.remove(candidatoClase3);
         }
     }
-
+    
     public synchronized void actualizarBits() {
 
         for (Pagina pagina : marcos.values()) {
