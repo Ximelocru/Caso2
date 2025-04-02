@@ -47,16 +47,18 @@ public class Main {
         int TP = Integer.parseInt(reader.readLine().trim());
     
         System.out.print("Ingrese el nombre de la imagen (ejemplo: imagen.bmp). Recuerde que debe encontrarse dentro de la carpeta 'Imagenes': ");
-        String inputFilePath = "Imagenes/" + reader.readLine().trim();
+        String nombreImagen = reader.readLine().trim();
+        String inputFilePath = "Imagenes/" + nombreImagen;
     
         Imagen imagenIn = new Imagen(inputFilePath); 
         Imagen imagenOut = new Imagen(inputFilePath); 
     
         FiltroSobel fs = new FiltroSobel(imagenIn, imagenOut, TP);
         fs.applySobel();
-        fs.generarArchivoReferencias();
+        String nombreArchivo = nombreImagen.replace(".bmp", "");
+        fs.generarArchivoReferencias(nombreArchivo);
     
-        String outputFilePath = inputFilePath.replace(".bmp", "_sal.bmp");
+        String outputFilePath = inputFilePath.replace(".bmp", "-salida.bmp");
         imagenOut.escribirImagen(outputFilePath);
         System.out.println("Imagen procesada y guardada en: " + outputFilePath);
     }

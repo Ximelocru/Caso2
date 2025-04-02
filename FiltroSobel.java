@@ -104,14 +104,14 @@ public class FiltroSobel {
         referencias.add(ref);
     }
 
-    public void generarArchivoReferencias() {
+    public void generarArchivoReferencias(String nombreImagen) {
         int NF = imagenOut.alto;
         int NC = imagenOut.ancho;
         int NR = referencias.size();
         int totalBytes = (imagenIn.alto * imagenIn.ancho * 3 * 2) + 72;
         int NP = (int) Math.ceil((double) totalBytes / TP);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Referencias/referencias-" + TP + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Referencias/" + nombreImagen + "-" + TP + ".txt"))) {
 
             writer.write("TP=" + TP);
             writer.newLine();
@@ -137,6 +137,6 @@ public class FiltroSobel {
             e.printStackTrace();
         }
 
-        System.out.println("Archivo de referencias generado y guardado en: Referencias/referencias-" + TP + ".txt");
+        System.out.println("Archivo de referencias generado y guardado en: Referencias/" + nombreImagen + "-" + TP + ".txt");
     }
 }
