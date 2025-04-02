@@ -3,7 +3,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Imagen {
-
     byte[] header = new byte[54];
     byte[][][] imagen;
     int alto, ancho;

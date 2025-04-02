@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    
     public static void main(String[] args) {
         try (
 
@@ -42,7 +41,6 @@ public class Main {
     }
 
     public static void generarReferencias(BufferedReader reader) throws NumberFormatException, IOException {
-        
         System.out.print("Ingrese el tamaño de página (en bytes): ");
         int TP = Integer.parseInt(reader.readLine().trim());
     
@@ -70,6 +68,7 @@ public class Main {
         System.out.print("Ingrese el numero de marcos: ");
         Integer numMarcos = Integer.parseInt(reader.readLine().trim());
 
+        long inicio = System.nanoTime();
         List<int[]> referencias = leerReferencias(nombreArchivo);
         PaginacionNRU paginacion = new PaginacionNRU(numMarcos);
 
@@ -86,15 +85,16 @@ public class Main {
             Thread.currentThread().interrupt();
         }
 
+        long fin = System.nanoTime();
         System.out.println("Fallas de página: " + gestor.fallasPagina);
-                System.out.println("Hits: " + gestor.hits);
-                System.out.println("total: " + (gestor.hits+gestor.fallasPagina));
-                
+        System.out.println("Hits: " + gestor.hits);
+        System.out.println("total: " + (gestor.hits+gestor.fallasPagina));
+        double tiempoEjecucion = (fin - inicio) / 1_000_000.0;
+        System.out.println("Tiempo de ejecución: " + tiempoEjecucion + " ms");
         actualizador.interrupt();
     }
     
     private static List<int[]> leerReferencias(String nombreArchivo) throws IOException {
-
         List<int[]> referencias = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
