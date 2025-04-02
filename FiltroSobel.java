@@ -137,6 +137,6 @@ public class FiltroSobel {
             e.printStackTrace();
         }
 
-        System.out.println("Archivo de referencias generado y guardado en: Referencias/referencias-" + TP + "B.txt");
+        System.out.println("Archivo de referencias generado y guardado en: Referencias/referencias-" + TP + ".txt");
     }
 }

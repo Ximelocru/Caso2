@@ -62,7 +62,7 @@ public class Main {
     }
 
     public static void simuladorPaginacion(BufferedReader reader) throws IOException {
-        System.out.print("Ingrese el nombre del archivo de referencias (ejemplo: referencias-32B.txt). Recuerde que debe encontrarse dentro de la carpeta 'Referencias': ");
+        System.out.print("Ingrese el nombre del archivo de referencias (ejemplo: referencias-32.txt). Recuerde que debe encontrarse dentro de la carpeta 'Referencias': ");
         String nombreArchivo = "Referencias/" + reader.readLine().trim();
         
         System.out.print("Ingrese el numero de marcos: ");
