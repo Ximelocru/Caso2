@@ -13,7 +13,7 @@ public class PaginacionNRU {
 
     public synchronized boolean procesarReferencia(int numeroPagina, boolean esEscritura) {
 
-        if (marcos.containsKey(numeroPagina)) {
+        if (tablaPaginas.containsKey(numeroPagina)) {
             Pagina pagina = marcos.get(numeroPagina);
             pagina.bitUso = 1;
 
